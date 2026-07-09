@@ -15,7 +15,7 @@ death-spiral to a stable **115–190 MB**. There is **no upstream fix** as of wr
 
 ---
 
-## A note on the symptom: hang, not reboot
+## A note on the symptom: hang, leading to a manual reboot
 
 The native failure mode is a **hard hang** — the AP stops forwarding, becomes
 unresponsive, and needs a power cycle to recover. If you install a low-RAM watchdog (a
