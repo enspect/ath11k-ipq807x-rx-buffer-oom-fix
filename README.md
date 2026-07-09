@@ -11,7 +11,9 @@ both miss it** because the consumed space is page-allocator memory, not slab.
 The fix — a small OpenWrt patch that **halves the ath11k RX/monitor ring sizes** — caps
 the footprint. In testing it took a 4-node MX4200 mesh from *locking up during a single
 Plex movie* to **hours of streaming with no incident**, free memory rising from a ~30 MB
-death-spiral to a stable **115–190 MB**. There is **no upstream fix** as of writing.
+death-spiral to a stable **115–190 MB**. **No fix for this has been merged into the
+OpenWrt tree** as of writing — see [Prior art & credit](#prior-art--credit) for related
+independent work.
 
 ---
 
@@ -108,6 +110,30 @@ rings** — so if you adapt this for a wider audience, consider conditioning the
 available RAM (or a build/DT option) rather than halving unconditionally. Values here are a
 known-good starting point, not a universally optimal one.
 
+## Prior art & credit
+
+This is **not the first time** someone has shrunk the ath11k RX rings to survive on a
+low-RAM board — and it's worth being clear about that.
+
+- **Yanko Yankulov** independently arrived at the same lever (reducing the ring sizes in
+  `ath11k/dp.h`) for the **ipq5018 / 256 MB** Mercusys MR80X, published ~March 2026:
+  - forum: *"A simple patch to get ath11k working on 256MiB ram"* —
+    <https://forum.openwrt.org/t/a-simple-patch-to-get-ath11k-working-on-256mib-ram/247147>
+  - commit: <https://github.com/yanko-yankulov/openwrt-mr80x/commit/ee7747f48999cae66e686d464dceaf838398309e>
+
+We reached the same mechanism independently, which is really **mutual validation** that
+ath11k's RX-buffer sizing is the culprit on low-RAM boards. What this repo adds on top of
+that prior work is:
+
+1. **ipq807x / 512 MB (MX4200)-specific tuning** — different SoC and RAM budget than the
+   256 MB ipq5018 case, so different ring values (a gentle halving rather than the more
+   aggressive cuts that suit a 256 MB board).
+2. **A documented root-cause method** — the `page_owner` diagnosis showing the
+   page-fragment 16× amplification and *why* `kmemleak` / `/proc/slabinfo` miss it.
+
+Neither patch is in the upstream OpenWrt tree; a properly mergeable fix would likely need
+to be conditioned on available RAM (see *Trade-offs & tuning*).
+
 ## License
 
 - **Patch** (`*.patch`): GPL-2.0, matching the Linux kernel / OpenWrt source it modifies.
@@ -118,6 +144,7 @@ See [`LICENSE`](./LICENSE).
 
 ---
 
-*Diagnosed and written up from a real deployment. No upstream fix existed at time of
-writing; this is offered so other ipq807x/ath11k users hitting the same hang (or
-watchdog-reboot) have a root cause and a working mitigation to start from.*
+*Diagnosed and written up from a real deployment. No fix was merged in the OpenWrt tree at
+time of writing (see [Prior art & credit](#prior-art--credit) for related independent
+work); this is offered so other ipq807x/ath11k users hitting the same hang have a root
+cause and a working mitigation to start from.*
