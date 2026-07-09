@@ -121,7 +121,7 @@ low-RAM board — and it's worth being clear about that.
     <https://forum.openwrt.org/t/a-simple-patch-to-get-ath11k-working-on-256mib-ram/247147>
   - commit: <https://github.com/yanko-yankulov/openwrt-mr80x/commit/ee7747f48999cae66e686d464dceaf838398309e>
 
-We reached the same mechanism independently, which is really **mutual validation** that
+I reached the same mechanism independently, which is really **mutual validation** that
 ath11k's RX-buffer sizing is the culprit on low-RAM boards. What this repo adds on top of
 that prior work is:
 
@@ -148,3 +148,5 @@ See [`LICENSE`](./LICENSE).
 time of writing (see [Prior art & credit](#prior-art--credit) for related independent
 work); this is offered so other ipq807x/ath11k users hitting the same hang have a root
 cause and a working mitigation to start from.*
+
+*Diagnosis and writeup by **enspect**, with an AI assistant (Claude Code).*
