@@ -148,5 +148,3 @@ See [`LICENSE`](./LICENSE).
 time of writing (see [Prior art & credit](#prior-art--credit) for related independent
 work); this is offered so other ipq807x/ath11k users hitting the same hang have a root
 cause and a working mitigation to start from.*
-
-*Diagnosis and writeup by **enspect**, with an AI assistant (Claude Code).*
