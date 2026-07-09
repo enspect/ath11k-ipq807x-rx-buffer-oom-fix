@@ -1,0 +1,32 @@
+This repository contains two kinds of material under two licenses.
+
+============================================================================
+1. THE PATCH  (files matching *.patch)
+   License: GPL-2.0-only
+============================================================================
+
+The patch modifies Linux kernel / OpenWrt source and is licensed under the
+GNU General Public License, version 2, to match the code it applies to.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 2 as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, see <https://www.gnu.org/licenses/>.
+
+============================================================================
+2. THE DOCUMENTATION  (README.md and any other prose)
+   License: CC0-1.0 (public domain dedication)
+============================================================================
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to the documentation in this
+repository to the public domain worldwide. The documentation is
+distributed without any warranty. See
+<https://creativecommons.org/publicdomain/zero/1.0/>.
